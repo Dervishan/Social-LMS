@@ -10,23 +10,23 @@ using Social_LMS.Models;
 
 namespace Social_LMS.Controllers
 {
-    public class RolesController : Controller
+    public class GroupsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public RolesController(ApplicationDbContext context)
+        public GroupsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Roles
+        // GET: Groups
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Role.Include(r => r.Authorization);
+            var applicationDbContext = _context.Group.Include(a => a.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Roles/Details/5
+        // GET: Groups/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +34,42 @@ namespace Social_LMS.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Role
-                .Include(r => r.Authorization)
+            var @group = await _context.Group
+                .Include(a => a.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (role == null)
+            if (@group == null)
             {
                 return NotFound();
             }
 
-            return View(role);
+            return View(@group);
         }
 
-        // GET: Roles/Create
+        // GET: Groups/Create
         public IActionResult Create()
         {
-            ViewData["AuthorizationId"] = new SelectList(_context.Set<Authorization>(), "Id", "Id");
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Name");
             return View();
         }
 
-        // POST: Roles/Create
+        // POST: Groups/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AuthorizationId,Id,Name,NormalizedName,ConcurrencyStamp")] Role role)
+        public async Task<IActionResult> Create([Bind("Id,Name,CreatedDate,UserId")] Group @group)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(role);
+                _context.Add(@group);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorizationId"] = new SelectList(_context.Set<Authorization>(), "Id", "Id", role.AuthorizationId);
-            return View(role);
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Name", @group.UserId);
+            return View(@group);
         }
 
-        // GET: Roles/Edit/5
+        // GET: Groups/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +77,23 @@ namespace Social_LMS.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Role.FindAsync(id);
-            if (role == null)
+            var @group = await _context.Group.FindAsync(id);
+            if (@group == null)
             {
                 return NotFound();
             }
-            ViewData["AuthorizationId"] = new SelectList(_context.Set<Authorization>(), "Id", "Id", role.AuthorizationId);
-            return View(role);
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Name", @group.UserId);
+            return View(@group);
         }
 
-        // POST: Roles/Edit/5
+        // POST: Groups/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AuthorizationId,Id,Name,NormalizedName,ConcurrencyStamp")] Role role)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CreatedDate,UserId")] Group @group)
         {
-            if (id != role.Id)
+            if (id != @group.Id)
             {
                 return NotFound();
             }
@@ -102,12 +102,12 @@ namespace Social_LMS.Controllers
             {
                 try
                 {
-                    _context.Update(role);
+                    _context.Update(@group);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RoleExists(role.Id))
+                    if (!GroupExists(@group.Id))
                     {
                         return NotFound();
                     }
@@ -118,11 +118,11 @@ namespace Social_LMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorizationId"] = new SelectList(_context.Set<Authorization>(), "Id", "Id", role.AuthorizationId);
-            return View(role);
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Name", @group.UserId);
+            return View(@group);
         }
 
-        // GET: Roles/Delete/5
+        // GET: Groups/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +130,31 @@ namespace Social_LMS.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Role
-                .Include(r => r.Authorization)
+            var @group = await _context.Group
+                .Include(a => a.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (role == null)
+            if (@group == null)
             {
                 return NotFound();
             }
 
-            return View(role);
+            return View(@group);
         }
 
-        // POST: Roles/Delete/5
+        // POST: Groups/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var role = await _context.Role.FindAsync(id);
-            _context.Role.Remove(role);
+            var @group = await _context.Group.FindAsync(id);
+            _context.Group.Remove(@group);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RoleExists(int id)
+        private bool GroupExists(int id)
         {
-            return _context.Role.Any(e => e.Id == id);
+            return _context.Group.Any(e => e.Id == id);
         }
     }
 }

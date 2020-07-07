@@ -17,8 +17,8 @@ namespace Social_LMS.Data
         public DbSet<Social_LMS.Models.Faculty> Faculty { get; set; }
         public DbSet<Social_LMS.Models.Department> Department { get; set; }
         public DbSet<Social_LMS.Models.Role> Role { get; set; }
-        public DbSet<Social_LMS.Models.Authorization> Authorization { get; set; }
         public DbSet<Social_LMS.Models.Course> Course { get; set; }
         public DbSet<Social_LMS.Models.User> User { get; set; }
+        public DbSet<Social_LMS.Models.Group> Group { get; set; }
     }
 }
