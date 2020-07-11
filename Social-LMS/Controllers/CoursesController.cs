@@ -61,6 +61,7 @@ namespace Social_LMS.Controllers
         {
             if (ModelState.IsValid)
             {
+                course.CreatedDate = DateTime.UtcNow;
                 _context.Add(course);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

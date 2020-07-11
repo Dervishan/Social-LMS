@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace Social_LMS.Models
 {
-    public class Year
+    public enum Year
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public virtual List<User> Users { get; set; }
-    }
+        Freshman = 1, Sophomore, Junior, Senior
+}
 }

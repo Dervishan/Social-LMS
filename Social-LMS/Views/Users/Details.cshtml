@@ -50,7 +50,13 @@
             @Html.DisplayNameFor(model => model.Year)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Year.Id)
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Photo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Photo)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Role)
@@ -65,10 +71,22 @@
             @Html.DisplayFor(model => model.UserName)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NormalizedUserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NormalizedUserName)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NormalizedEmail)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NormalizedEmail)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.EmailConfirmed)
@@ -81,6 +99,18 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PasswordHash)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SecurityStamp)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SecurityStamp)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ConcurrencyStamp)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ConcurrencyStamp)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PhoneNumber)
@@ -99,6 +129,24 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TwoFactorEnabled)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LockoutEnd)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LockoutEnd)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LockoutEnabled)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LockoutEnabled)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccessFailedCount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccessFailedCount)
         </dd>
         <dt>
             @Html.DisplayFor(model => model.Photo)

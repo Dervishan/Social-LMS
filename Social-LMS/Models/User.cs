@@ -42,9 +42,6 @@ namespace Social_LMS.Models
         public bool IsDeleted { get; set; }
 
         [Display(Name = "Yıl")]
-        public int YearId { get; set; }
-
-        [Display(Name = "Yıl")]
         public Year Year { get; set; }
 
         [Display(Name = "Profil fotoğrafı")]

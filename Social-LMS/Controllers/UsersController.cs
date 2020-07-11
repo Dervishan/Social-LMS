@@ -28,7 +28,7 @@ namespace Social_LMS.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.User.Include(u => u.Role).Include(u => u.Year);
+            var applicationDbContext = _context.User.Include(u => u.Role);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -42,7 +42,6 @@ namespace Social_LMS.Controllers
 
             var user = await _context.User
                 .Include(u => u.Role)
-                .Include(u => u.Year)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
@@ -56,7 +55,6 @@ namespace Social_LMS.Controllers
         public IActionResult Create()
         {
             ViewData["RoleId"] = new SelectList(_context.Role, "Id", "Name");
-            ViewData["YearId"] = new SelectList(_context.Year, "Id", "Name");
             return View();
         }
 
@@ -77,7 +75,6 @@ namespace Social_LMS.Controllers
                     Surname = userViewModel.Surname,
                     BirthDate = userViewModel.BirthDate,
                     About = userViewModel.About,
-                    YearId = userViewModel.YearId,
                     Photo = uniqueFileName,
                     RoleId = userViewModel.RoleId
                 };
@@ -118,7 +115,6 @@ namespace Social_LMS.Controllers
                 return NotFound();
             }
             ViewData["RoleId"] = new SelectList(_context.Role, "Id", "Name", user.RoleId);
-            ViewData["YearId"] = new SelectList(_context.Year, "Id", "Name", user.YearId);
             return View(user);
         }
 
@@ -156,8 +152,7 @@ namespace Social_LMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Role, "Id", "Id", user.RoleId);
-            ViewData["YearId"] = new SelectList(_context.Year, "Id", "Id", user.YearId);
+            ViewData["RoleId"] = new SelectList(_context.Role, "Id", "Name", user.RoleId);
             return View(user);
         }
 
@@ -171,7 +166,6 @@ namespace Social_LMS.Controllers
 
             var user = await _context.User
                 .Include(u => u.Role)
-                .Include(u => u.Year)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {

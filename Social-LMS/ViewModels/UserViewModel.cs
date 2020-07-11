@@ -4,6 +4,7 @@ using Social_LMS.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,12 +32,10 @@ namespace Social_LMS.ViewModels
         public string About { get; set; }
 
         [Display(Name = "Yıl")]
-        public int YearId { get; set; }
-
-        [Display(Name = "Yıl")]
         public Year Year { get; set; }
 
         [Display(Name = "Profil fotoğrafı")]
+        [NotMapped]
         public IFormFile Photo { get; set; }
 
         [Display(Name = "Hesap türü")]
