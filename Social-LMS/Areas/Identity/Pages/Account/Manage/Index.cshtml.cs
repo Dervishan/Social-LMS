@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Social_LMS.Data;
 using Social_LMS.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -28,6 +29,7 @@ namespace Social_LMS.Areas.Identity.Pages.Account.Manage
             this.hostEnvironment = hostEnvironment;
         }
 
+        [Display(Name ="Kullanıcı adı")]
         public string Username { get; set; }
 
         [TempData]
@@ -94,6 +96,7 @@ namespace Social_LMS.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            ViewData["Photo"] = user.Photo;
             await LoadAsync(user);
             return Page();
         }

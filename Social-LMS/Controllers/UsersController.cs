@@ -93,7 +93,8 @@ namespace Social_LMS.Controllers
                     BirthDate = userViewModel.BirthDate,
                     About = userViewModel.About,
                     Photo = uniqueFileName,
-                    RoleId = userViewModel.RoleId
+                    RoleId = userViewModel.RoleId,
+                    Year = userViewModel.Year
                 };
                 _context.Add(user);
                 await _context.SaveChangesAsync();
@@ -119,7 +120,7 @@ namespace Social_LMS.Controllers
             return uniqueFileName;
         }
         // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, UserViewModel model)
         {
             if (id == null)
             {
@@ -130,7 +131,17 @@ namespace Social_LMS.Controllers
             {
                 return NotFound();
             }
-            return View(user);
+            model = new UserViewModel
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Surname = user.Surname,
+                BirthDate = user.BirthDate,
+                About = user.About,
+                RoleId = user.RoleId,
+                Year = user.Year
+            };
+            return View(model);
         }
 
         // POST: Users/Edit/5

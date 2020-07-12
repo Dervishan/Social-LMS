@@ -1,99 +1,145 @@
 ﻿@model Social_LMS.Models.User
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detaylar";
+    Layout = "_UserLayout";
 }
 
-<h1>Detaylar</h1>
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa-user-md"></i> Profile</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a asp-action="Index" asp-controller="Home">Home</a></li>
+                    <li><i class="fa fa-user-md"></i>Profile</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <!-- profile-widget -->
+            <div class="col-lg-12">
+                <div class="profile-widget profile-widget-info">
+                    <div class="panel-body">
+                        <div class="col-lg-2 col-sm-2">
+                            <h4>@Html.DisplayFor(model => model.Name)</h4>
+                            <div class="follow-ava">
+                                <img src="~/images/@Model.Photo" alt="" asp-append-version="true">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-4 follow-info">
+                            <p>
+                                @Html.DisplayFor(model => model.About)
+                            </p>
+                            <p>maybe instagram</p>
+                            <p><i class="fa fa-twitter">maybe twitter</i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- page start-->
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading tab-bg-info">
+                        <ul class="nav nav-tabs">
+                            <li>
+                                <a data-toggle="tab" href="#profile">
+                                    <i class="icon-user"></i>
+                                    Profil
+                                </a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                                    <i class="icon-envelope"></i>
+                                    Profili düzenle
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="AddContact" asp-route-id="@Model.Id">
+                                    <i class="icon-user"></i>Ekle
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="SendMessage" asp-controller="Messages" asp-route-id="@Model.Id">
+                                    <i class="icon-envelope"></i>Mesaj gönder
+                                </a>
+                            </li>
+                        </ul>
+                    </header>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <!-- profile -->
+                            <div id="profile" class="tab-pane">
+                                <section class="panel">
+                                    <div class="bio-graph-heading">
+                                        @Html.DisplayFor(model => model.About)
+                                    </div>
+                                    <div class="panel-body bio-graph-info">
+                                        <h1>Hakkında</h1>
+                                        <div class="row">
+                                            <div class="bio-row">
+                                                <p>
+                                                    <span>
+                                                        @Html.DisplayNameFor(model => model.Name)
+                                                    </span>
+                                                    @Html.DisplayFor(model => model.Name)
+                                                </p>
+                                            </div>
+                                            <div class="bio-row">
+                                                <p>
+                                                    <span>
+                                                        @Html.DisplayNameFor(model => model.Surname)
+                                                    </span>
+                                                    @Html.DisplayFor(model => model.Surname)
+                                                </p>
+                                            </div>
+                                            <div class="bio-row">
+                                                <p>
+                                                    <span>
+                                                        @Html.DisplayNameFor(model => model.BirthDate)
+                                                    </span>
+                                                    @Html.DisplayFor(model => model.BirthDate)
+                                                </p>
+                                            </div>
+                                            <div class="bio-row">
+                                                <p>
+                                                    <span>
+                                                        @Html.DisplayNameFor(model => model.Year)
+                                                    </span>
+                                                    @Html.DisplayFor(model => model.Year)
+                                                </p>
+                                            </div>
+                                            <div class="bio-row">
+                                                <p>
+                                                    <span>
+                                                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                                                    </span>
+                                                    @Html.DisplayFor(model => model.PhoneNumber)
+                                                </p>
+                                            </div>
+                                            <div class="bio-row">
+                                                <p>
+                                                    <span>
+                                                        @Html.DisplayNameFor(model => model.Email)
+                                                    </span>
+                                                    @Html.DisplayFor(model => model.Email)
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <!-- edit-profile -->
+                            <a id="edit-profile" class="tab-pane" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
 
-<div>
-    <h4>Kullanıcı</h4>
-    <hr />
-    <div class="row">
-        <div class="col-sm-2">
-            <img src="~/images/@Model.Photo"
-                 height="110" width="110"
-                 asp-append-version="true" />
-        </div>
-        <div class="col">
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Name)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Name)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Surname)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Surname)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.BirthDate)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.BirthDate)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.RegisterDate)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.RegisterDate)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.About)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.About)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.IsDeleted)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.IsDeleted)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Year)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Year)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Role)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Role.Id)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.UserName)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.UserName)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Email)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Email)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.EmailConfirmed)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.EmailConfirmed)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.PhoneNumber)
-                </dd>
-            </dl>
-        </div>
-    </div>
-</div>
-<div>
-    <a asp-action="AddContact" asp-route-id="@Model.Id">Ekle</a>
-    <a asp-action="SendMessage" asp-controller="Messages" asp-route-id="@Model.Id">Mesaj gönder</a>
-</div>
+        <!-- page end-->
+    </section>
+</section>

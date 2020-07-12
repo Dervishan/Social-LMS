@@ -59,8 +59,8 @@ namespace Social_LMS.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    "Şifre yenile",
+                    $"Lütfen şifrenizi <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>buraya</a> basarak sıfırlayın.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

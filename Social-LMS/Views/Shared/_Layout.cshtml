@@ -18,25 +18,25 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                     @await Html.PartialAsync("_SearchPartial", new Social_LMS.ViewModels.SearchViewModel())
+                    @await Html.PartialAsync("_SearchPartial", new Social_LMS.ViewModels.SearchViewModel())
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Faculties" asp-action="Index" hidden>Faculties</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Faculties" asp-action="Index" >Fakülteler</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Departments" asp-action="Index" hidden>Departments</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Departments" asp-action="Index" >Bölümler</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Courses" asp-action="Index">Courses</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Courses" asp-action="Index">Dersler</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Kullanıcılar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Groups" asp-action="Index">Groups</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Groups" asp-action="Index">Gruplar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Roles" asp-action="Index" hidden>Roles</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Roles" asp-action="Index" >Roller</a>
                         </li>
                     </ul>
                 </div>

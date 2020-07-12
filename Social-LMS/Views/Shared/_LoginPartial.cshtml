@@ -2,31 +2,43 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-<ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <li class="nav-item">
-                @{
-                    var photo = UserManager.GetUserAsync(User).Result.Photo;
-                }
-            <img src="~/images/@photo" class="rounded-circle" height="40" width="40" asp-append-version="true" />
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Merhaba @User.Identity.Name!</a>
-        </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Çıkış</button>
-            </form>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Kayıt ol</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Giriş yap</a>
-        </li>
-    }
-</ul>
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            var photo = UserManager.GetUserAsync(User).Result.Photo;
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle">
+                    <span class="profile-ava">
+                        <img alt="" src="~/images/@photo" style="width:34px; height:34px;" asp-append-version="true">
+                    </span>
+                    <span class="username">@User.Identity.Name</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu extended logout">
+                    <div class="log-arrow-up"></div>
+                    <li class="eborder-top">
+                        <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="icon_profile"></i> Profili düzenle</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="icon_mail_alt"></i> Mesajlarım</a>
+                    </li>
+                    <li class="nav-item">
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button type="submit" class="icon_key_alt">Çıkış</button>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+
+
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Kayıt ol</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Giriş yap</a>
+            </li>
+        }
+    </ul>
