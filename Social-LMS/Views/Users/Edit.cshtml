@@ -4,9 +4,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Düzenle</h1>
 
-<h4>User</h4>
+<h4>Kullanıcı</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -68,16 +68,6 @@
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="PhoneNumberConfirmed" /> @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="TwoFactorEnabled" /> @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-                </label>
-            </div>
             <div class="form-group">
                 <label asp-for="Photo" class="custom-file-label"></label>
                 <input asp-for="Photo" type="file" class="custom-file-input" />
@@ -91,7 +81,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Listeye dön</a>
 </div>
 
 @section scripts{

@@ -13,6 +13,7 @@ namespace Social_LMS.Models
             RoleId = 2;
             RegisterDate = DateTime.UtcNow.Date;
             IsDeleted = false;
+            Year = Year.Freshman;
         }
 
         [Required]

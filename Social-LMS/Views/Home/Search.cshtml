@@ -1,0 +1,184 @@
+﻿@model Social_LMS.ViewModels.SearchViewModel
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>Arama</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Search">
+            <div class="form-group">
+                <label asp-for="SearchText" class="control-label"></label>
+                <input asp-for="SearchText" class="form-control" />
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SearchInCourses" /> @Html.DisplayNameFor(model => model.SearchInCourses)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SearchInUsers" /> @Html.DisplayNameFor(model => model.SearchInUsers)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SearchInGroups" /> @Html.DisplayNameFor(model => model.SearchInGroups)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Ara" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+</div>
+@if (Model?.UserResults != null)
+{
+    <h3> Kullanıcı Arama Sonuçları</h3>
+    <h5> @Model.UserResults.Count Adet kullanıcı bulundu. </h5>
+
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Fotoğraf
+                    </th>
+                    <th>
+                        İsim
+                    </th>
+                    <th>
+                        Soyisim
+                    </th>
+                    <th>
+                        Yıl
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.UserResults)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/images/@item.Photo" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Surname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>
+                        <td>
+                            <a asp-controller="Users" asp-action="Profile" asp-route-id="@item.Id">Detaylar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+
+@if (Model?.CourseResults != null)
+{
+    <h3> Ders Arama Sonuçları</h3>
+    <h5> @Model.CourseResults.Count Adet ders bulundu. </h5>
+
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Departman
+                    </th>
+                    <th>
+                        Ders Adı
+                    </th>
+                    <th>
+                        Ders Kodu
+                    </th>
+                    <th>
+                        Açıklama
+                    </th>
+                    <th>
+                        Oluşturulma tarihi
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CourseResults)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Department.NameShort)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            <a asp-controller="Courses" asp-action="Details" asp-route-id="@item.Id">Detaylar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+
+@if (Model?.GroupResults != null)
+{
+    <h3> Grup Arama Sonuçları</h3>
+    <h5> @Model.GroupResults.Count Adet grup bulundu. </h5>
+
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Adı
+                    </th>
+                    <th>
+                        Oluşturulma tarihi
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.GroupResults)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            <a asp-controller="Groups" asp-action="Details" asp-route-id="@item.Id">Detaylar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+

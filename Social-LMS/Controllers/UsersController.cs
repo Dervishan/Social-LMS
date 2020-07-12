@@ -50,6 +50,23 @@ namespace Social_LMS.Controllers
 
             return View(user);
         }
+        public async Task<IActionResult> Profile(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.User
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
 
         // GET: Users/Create
         public IActionResult Create()
@@ -63,7 +80,7 @@ namespace Social_LMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Surname,BirthDate,RegisterDate,About,IsDeleted,YearId,Photo,RoleId,Id,UserName,Email,EmailConfirmed,PasswordHash,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled")] UserViewModel userViewModel)
+        public async Task<IActionResult> Create([Bind("Name,Surname,BirthDate,RegisterDate,About,Photo,RoleId,Id,UserName,Email,EmailConfirmed,PasswordHash,PhoneNumber")] UserViewModel userViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -108,13 +125,11 @@ namespace Social_LMS.Controllers
             {
                 return NotFound();
             }
-
             var user = await _context.User.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            ViewData["RoleId"] = new SelectList(_context.Role, "Id", "Name", user.RoleId);
             return View(user);
         }
 
@@ -123,7 +138,7 @@ namespace Social_LMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Surname,BirthDate,RegisterDate,About,IsDeleted,YearId,RoleId,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] User user, UserViewModel userViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Surname,BirthDate,RegisterDate,About,IsDeleted,Year,RoleId,Id,UserName,Email,EmailConfirmed,PasswordHash,PhoneNumber")] User user, UserViewModel userViewModel)
         {
             if (id != user.Id)
             {

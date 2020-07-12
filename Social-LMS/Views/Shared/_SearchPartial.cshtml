@@ -1,0 +1,23 @@
+﻿@model Social_LMS.ViewModels.SearchViewModel
+<div style="align-self:center; margin-right:20px;">
+    <div class="header_search">
+        <div class="header_search_content">
+            <div class="header_search_form_container">
+                <form asp-action="Search" asp-controller="Home" class="header_search_form">
+                    <div>
+                        <input asp-for="SearchText" type="search" required="required" class="header_search_input rounded" placeholder="Arama metni" style=" width:210px;">
+                    <input type="submit" value="Ara" class="btn btn-primary" />
+                    </div>
+                    <div>
+                        <label asp-for="SearchInUsers" class="control-label" style="float:left;height:10px;margin-top:-8px;"></label>
+                        <input asp-for="SearchInUsers" class="form-control" style="width: 10px;height: 10px;float: left;margin-right: 10px;margin-left: 5px;" />
+                        <label asp-for="SearchInCourses" class="control-label" style="float:left;height:10px;margin-top:-8px"></label>
+                        <input asp-for="SearchInCourses" class="form-control" style="width: 10px;float: left;height: 10px;margin-right: 10px;margin-left: 5px;" />
+                        <label asp-for="SearchInGroups" class="control-label" style="float:left;height:10px;margin-top:-8px"></label>
+                        <input asp-for="SearchInGroups" class="form-control" style="width: 10px;float: left;height: 10px;margin-right: 10px;margin-left: 5px;" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

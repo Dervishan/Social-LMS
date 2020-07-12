@@ -19,6 +19,8 @@ namespace Social_LMS.Data
         {
         }
 
+        public DbSet<Social_LMS.Models.Message> Message { get; set; }
+
 
     }
 }

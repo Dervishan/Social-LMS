@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Social_LMS.Models;
+using Social_LMS.ViewModels;
+using Social_LMS.Data;
 
 namespace Social_LMS.Areas.Identity.Pages.Account
 {
