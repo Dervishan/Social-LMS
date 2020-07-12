@@ -302,13 +302,16 @@ namespace Social_LMS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("GroupId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<int?>("RecipientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RecipientUserId")
+                    b.Property<int?>("RecipientUserId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SenderId")
@@ -323,6 +326,8 @@ namespace Social_LMS.Migrations
                         .HasMaxLength(400);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
 
                     b.HasIndex("RecipientId");
 
@@ -597,6 +602,10 @@ namespace Social_LMS.Migrations
 
             modelBuilder.Entity("Social_LMS.Models.Message", b =>
                 {
+                    b.HasOne("Social_LMS.Models.Group", "Group")
+                        .WithMany("MessagesReceived")
+                        .HasForeignKey("GroupId");
+
                     b.HasOne("Social_LMS.Models.User", "Recipient")
                         .WithMany("MessagesReceived")
                         .HasForeignKey("RecipientId");

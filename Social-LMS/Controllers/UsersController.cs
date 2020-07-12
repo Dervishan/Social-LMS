@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,11 +19,13 @@ namespace Social_LMS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment hostEnvironment;
+        private readonly UserManager<User> _userManager;
 
-        public UsersController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
+        public UsersController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment, UserManager<User> userManager)
         {
             _context = context;
             this.hostEnvironment = hostEnvironment;
+            _userManager = userManager;
         }
 
         // GET: Users
@@ -30,6 +33,12 @@ namespace Social_LMS.Controllers
         {
             var applicationDbContext = _context.User.Include(u => u.Role);
             return View(await applicationDbContext.ToListAsync());
+        }
+        // GET: MyContacts
+        public async Task<IActionResult> MyContacts()
+        {
+            var user = _context.User.Include(x=>x.Contacts).FirstOrDefault(x=> x.Id.ToString() == _userManager.GetUserId(User));
+            return View(user.Contacts);
         }
 
         // GET: Users/Details/5
@@ -72,6 +81,16 @@ namespace Social_LMS.Controllers
         public IActionResult Create()
         {
             ViewData["RoleId"] = new SelectList(_context.Role, "Id", "Name");
+            return View();
+        }
+        // GET: Users/AddContact
+        [HttpPost]
+        public async Task<IActionResult> AddContact(int? id)
+        {
+            var userToBeAdded =  _context.User.FirstOrDefault(x=> x.Id == id);
+            var userLogged =  _context.User.FirstOrDefault(x => x.Id.ToString() == _userManager.GetUserId(User));
+            userLogged.Contacts.Add(userToBeAdded);
+            _context.Update(userLogged);
             return View();
         }
 

@@ -2,47 +2,64 @@
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa fa-bars"></i> Mesajlar</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i>Anasayfa</li>
+                    <li><i class="fa fa-bars"></i>Mesajlar</li>
+                    <li><i class="fa fa-envelope"></i>Mesaj detay</li>
+                </ol>
+            </div>
+        </div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Text)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Text)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreatedTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatedTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SenderUserId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SenderUserId)
+            </dd>
+            @if (Model.RecipientUserId != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.RecipientUserId)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.RecipientUserId)
+                </dd>
 
-<h1>Details</h1>
+            }
+            @if (Model.Group != null)
+            {
 
-<div>
-    <h4>Message</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Text)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Text)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SenderUserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SenderUserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RecipientUserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RecipientUserId)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Group)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Group.Name)
+                </dd>
+            }
+        </dl>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a> |
+            <a asp-action="Index">Listeye dön</a>
+        </div>
+
+    </section>
+</section>

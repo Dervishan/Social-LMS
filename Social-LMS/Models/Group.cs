@@ -26,9 +26,13 @@ namespace Social_LMS.Models
 
         [Display(Name = "Kurucu")]
         public int UserId { get; set; }
+        [Display(Name = "Kurucu")]
         public User User { get; set; }
 
-        [Display(Name = "gruptakiler")]
+        [Display(Name = "Gruptakiler")]
         public virtual List<UserGroup> People { get; set; }
+
+        [Display(Name = "Mesajlar")]
+        public virtual List<Message> MessagesReceived { get; set; }
     }
 }

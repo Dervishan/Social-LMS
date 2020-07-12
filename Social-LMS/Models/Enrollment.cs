@@ -8,6 +8,11 @@ namespace Social_LMS.Models
 {
     public class Enrollment
     {
+        public Enrollment()
+        {
+            EnrollmentDate = DateTime.UtcNow;
+            CoursePositionId = 1;
+        }
         public int Id { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]

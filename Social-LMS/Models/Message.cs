@@ -26,13 +26,23 @@ namespace Social_LMS.Models
         public DateTime CreatedTime { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        [Display(Name = "Gönderen")]
         public int SenderUserId { get; set; }
 
         [Display(Name = "Gönderen")]
         public User Sender { get; set; }
-        public int RecipientUserId { get; set; }
+
+        [Display(Name = "Alıcı")]
+        public int? RecipientUserId { get; set; }
 
         [Display(Name = "Alıcı")]
         public User Recipient { get; set; }
+
+        [Display(Name = "Alıcı")]
+        public int? GroupId { get; set; }
+
+        [Display(Name = "Alıcı")]
+        public Group Group { get; set; }
     }
 }

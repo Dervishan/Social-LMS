@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,16 +13,25 @@ namespace Social_LMS.Controllers
     public class MessagesController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public MessagesController(ApplicationDbContext context)
+        private readonly UserManager<User> _userManager;
+        public MessagesController(ApplicationDbContext context,
+              UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Messages
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Message.ToListAsync());
+            var applicationDbContext = _context.Message.Include(m => m.Group).Include(u => u.Recipient);
+            return View(await applicationDbContext.ToListAsync());
+        }
+        // GET: My Messages
+        public async Task<IActionResult> MyMessages()
+        {
+            var applicationDbContext = await _context.Message.Include(m => m.Group).Include(u => u.Recipient).Include(s=>s.Sender).Where(m=>m.SenderUserId.ToString()==_userManager.GetUserId(User)||m.RecipientUserId.ToString()==_userManager.GetUserId(User)).ToListAsync();
+            return View(applicationDbContext.ToList());
         }
 
         // GET: Messages/Details/5
@@ -34,6 +43,7 @@ namespace Social_LMS.Controllers
             }
 
             var message = await _context.Message
+                .Include(m => m.Group).Include(u=>u.Recipient)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (message == null)
             {
@@ -46,6 +56,8 @@ namespace Social_LMS.Controllers
         // GET: Messages/Create
         public IActionResult Create()
         {
+            ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Name");
+            ViewData["RecipientUserId"] = new SelectList(_context.Users, "Id", "Name");
             return View();
         }
 
@@ -54,14 +66,18 @@ namespace Social_LMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Text,CreatedTime,IsDeleted,SenderUserId,RecipientUserId")] Message message)
+        public async Task<IActionResult> Create([Bind("Id,Text,CreatedTime,IsDeleted,SenderUserId,RecipientUserId,GroupId")] Message message)
         {
             if (ModelState.IsValid)
             {
+                var user = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                message.SenderUserId = user.Id;
                 _context.Add(message);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["RecipientUserId"] = new SelectList(_context.Users, "Id", "Name",message.RecipientUserId);
+            ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Name", message.GroupId);
             return View(message);
         }
 
@@ -78,6 +94,8 @@ namespace Social_LMS.Controllers
             {
                 return NotFound();
             }
+            ViewData["RecipientUserId"] = new SelectList(_context.Users, "Id", "Name",message.RecipientUserId);
+            ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Name", message.GroupId);
             return View(message);
         }
 
@@ -86,7 +104,7 @@ namespace Social_LMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Text,CreatedTime,IsDeleted,SenderUserId,RecipientUserId")] Message message)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Text,CreatedTime,IsDeleted,SenderUserId,RecipientUserId,GroupId")] Message message)
         {
             if (id != message.Id)
             {
@@ -113,6 +131,8 @@ namespace Social_LMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["RecipientUserId"] = new SelectList(_context.Users, "Id", "Name",message.RecipientUserId);
+            ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Name", message.GroupId);
             return View(message);
         }
 
@@ -125,6 +145,7 @@ namespace Social_LMS.Controllers
             }
 
             var message = await _context.Message
+                .Include(m => m.Group)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (message == null)
             {

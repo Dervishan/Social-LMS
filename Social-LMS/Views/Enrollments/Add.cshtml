@@ -1,0 +1,45 @@
+﻿@model Social_LMS.Models.Enrollment
+
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa fa-bars"></i>Derslerim - Ekle</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i>Anasayfa</li>
+                    <li><i class="fa fa-book"></i>Dersler</li>
+                    <li><i class="fa fa-save"></i>Ekle</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Add">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Course.Name" class="control-label"></label>
+                        <select asp-for="Course.Name" class="form-control" asp-items="ViewBag.CourseName"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CourseId" class="control-label"></label>
+                        <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Add" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="MyEnrollments">Derslerime dön</a>
+        </div>
+
+
+    </section>
+</section>

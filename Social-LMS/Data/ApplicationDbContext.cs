@@ -21,6 +21,10 @@ namespace Social_LMS.Data
 
         public DbSet<Social_LMS.Models.Message> Message { get; set; }
 
+        public DbSet<Social_LMS.Models.CoursePosition> CoursePosition { get; set; }
+
+        public DbSet<Social_LMS.Models.Enrollment> Enrollment { get; set; }
+
 
     }
 }
